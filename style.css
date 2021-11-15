@@ -53,7 +53,6 @@ main{
     font-weight: 300;
     font-size: 18px;
     color: hsl(235, 45%, 61%);
-    width: 40px;
 }
 .jeremy .period p:hover{
     color: #fff;
@@ -91,8 +90,6 @@ main{
     border: none;
 }
 .col-md-9 .card .icon{
-    /* margin-top: -5px;
-    margin-left: 60%; */
     position: absolute;
     z-index: -2;
     top: -5px;
@@ -132,9 +129,6 @@ main{
         flex-direction: row;
         justify-content: space-evenly;
         padding-left: 0px;
-    }
-    .jeremy .period p{
-        padding: 0%;
     }
 
     .col-md-9 .card .detail .data{
