@@ -63,6 +63,9 @@ main{
     color: #fff;
     cursor: pointer;
 }
+.jeremy .period p.active{
+    color: #fff;
+}
 
 .col-md-9 .work{
     background-color: hsl(15, 100%, 70%);
@@ -89,12 +92,10 @@ main{
 .col-md-9 .card{
     border-radius: 15px;
     overflow: hidden;
-    z-index: -1;
     border: none;
 }
 .col-md-9 .card .icon{
     position: absolute;
-    z-index: -2;
     top: -5px;
     right: 10px;
 }
@@ -104,11 +105,13 @@ main{
     border-radius: 15px;
     margin-top: 45px;
     color: #fff;
+    z-index: 0;
     padding-left: 25px;
 }
 .col-md-9 .card .detail:hover{
-    background-color: hsl(235, 45%, 61%);
+    background-color: hsl(236, 41%, 34%);
     cursor: pointer;
+    transition: 0.3s ease;
 }
 .col-md-9 .card .detail .title{
     display: flex;
@@ -125,7 +128,7 @@ main{
     right: 25px;
 }
 .col-md-9 .card .detail .title .ellipsis img{
-    opacity: 0.5;
+    opacity: 0.4;
 }
 .col-md-9 .card .detail .title .ellipsis img:hover{
     opacity: 1;
