@@ -2,50 +2,68 @@ $(document).on('click', '.jeremy .period p', function(){
     $(this).addClass('active').siblings().removeClass('active');
 });
 
+let classForjs = document.querySelector('.class-for-js');
+let daily = document.getElementById('daily');
+let weekly = document.getElementById('weekly');
+let monthly = document.getElementById('monthly');
 
-$(document).ready(function(){
-    $("#daily").click(function(){
-        $("#work-data").text("5hrs");
-        $("#work-prev-data").text("Last Day - 7hrs");
-        $("#play-data").text("1hrs");
-        $("#play-prev-data").text("Last Day - 2hrs");
-        $("#study-data").text("0hrs");
-        $("#study-prev-data").text("Last Day - 1hrs");
-        $("#exercise-data").text("1hrs");
-        $("#exercise-prev-data").text("Last Day - 1hrs");
-        $("#social-data").text("1hrs");
-        $("#social-prev-data").text("Last Day - 1hrs");
-        $("#self-data").text("0hrs");
-        $("#self-prev-data").text("Last Day - 1hrs");
-    });
+var arr = [daily, weekly, monthly];
 
-    $("#weekly").click(function(){
-        $("#work-data").text("32hrs");
-        $("#work-prev-data").text("Last Week - 36hrs");
-        $("#play-data").text("10hrs");
-        $("#play-prev-data").text("Last Week - 8hrs");
-        $("#study-data").text("4hrs");
-        $("#study-prev-data").text("Last Week - 7hrs");
-        $("#exercise-data").text("4hrs");
-        $("#exercise-prev-data").text("Last Week - 5hrs");
-        $("#social-data").text("5hrs");
-        $("#social-prev-data").text("Last Week - 10hrs");
-        $("#self-data").text("2hrs");
-        $("#self-prev-data").text("Last Week - 2hrs");
-    });
-
-    $("#monthly").click(function(){
-        $("#work-data").text("103hrs");
-        $("#work-prev-data").text("Last Month - 128hrs");
-        $("#play-data").text("23hrs");
-        $("#play-prev-data").text("Last Month - 29hrs");
-        $("#study-data").text("13hrs");
-        $("#study-prev-data").text("Last Month - 19hrs");
-        $("#exercise-data").text("11hrs");
-        $("#exercise-prev-data").text("Last Month - 18hrs");
-        $("#social-data").text("21hrs");
-        $("#social-prev-data").text("Last Month - 23hrs");
-        $("#self-data").text("7hrs");
-        $("#self-prev-data").text("Last Month - 11hrs");
-    });
+arr.forEach(item => {
+    item.onclick = () => {
+        fetchData(item.innerText);
+    }
 });
+
+function fetchData(timeframe){
+    var tf;
+    var dwm;
+    switch(timeframe){
+        case "Daily":
+          dwm = "Day";
+          tf = "daily";
+        break;
+
+        case "Weekly":
+          tf = "weekly";
+          dwm = "Week";
+        break;
+
+        case "Monthly":
+          dwm = "Month";
+          tf = "monthly";
+        break;
+        
+        default:
+          tf = "none";
+        break;
+        
+    }
+fetch('data.json')
+.then(response => response.json())
+.then(data => {
+    classForjs.innerHTML = "";
+    data.forEach(item => {
+        classForjs.innerHTML+=`<div class="${item.title.toLowerCase().replace(" ", "-")} card">
+        <div class="icon">
+          <img src="/images/icon-${item.title.toLowerCase().replace(" ", "-")}.svg" alt="${item.title.toLowerCase().replace(" ", "-")}" />
+        </div>
+        <div class="detail">
+          <div class="title">
+            <p>${item.title}</p>
+            <div class="ellipsis">
+              <img src="images/icon-ellipsis.svg" alt="ellipsis" />
+            </div>
+          </div>
+          <div class="data">
+            <h1><span id="work-data">${item.timeframes[tf].current}</span>hrs</h1>
+            <p>Last ${dwm} - <span id="work-prev-data">${item.timeframes[tf].previous}</span>hrs</p>
+          </div>
+        </div>
+      </div>`
+        
+    })
+})
+}
+
+fetchData("Weekly");
